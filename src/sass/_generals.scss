@@ -1,0 +1,141 @@
+@import 'variables';
+
+*{
+    font-family: $roboto;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    box-sizing: border-box;
+    color: $black;
+    &::selection{
+        background-color: $red;
+        color: $white;
+    }
+}
+
+.hidden{
+    height: 0;
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+h2{
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+    font-size: 2.6rem;
+    font-weight: $bold;
+    span{
+        color: $red;
+        font-size: 1.3rem;
+        margin-bottom: .5rem;
+    }
+}
+
+.black{
+    padding-left: .5rem;
+    border-left: 6px solid $red;
+    span{
+        color: $black;
+    }
+}
+
+@media screen and (min-width: 768px){
+    h2{
+        font-size: 3.2rem;
+        span{
+            font-size: 1.9rem;
+            margin-bottom: 1rem;
+        }
+    }
+}
+@media screen and (min-width: 1280px){
+    h2{
+        font-size: 3.6rem;
+        span{
+            font-size: 2.3rem;
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+.btn{
+    padding: 1rem 2rem;
+    background: $grey;
+    border: none;
+    font-weight: $bold;
+    clip-path: polygon(0 0, 90% 0%, 100% 20%, 100% 100%, 10% 100%, 0 80%);
+    cursor: pointer;
+    text-decoration: none;
+    outline: none !important;
+    transition: ease-in-out .15s;
+    &:hover{
+        transform: scale(1.05);
+        background: $greyB;
+    }
+}
+
+.red{
+    background: $red;
+    color: $white;
+    &:hover{
+        background: $redB;
+    }
+}
+
+.container{
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 0 1rem;
+}
+
+.pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+    a{
+        padding: .5rem 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $lightGrey;
+        margin: .2rem;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: ease-in-out .15s;
+        &:hover{
+            background: $grey;
+        }
+    }
+    a#active{
+        background: $red;
+        color: $white;
+        transform: scale(1.1);
+        &:hover{
+            background: $redB;
+        }
+    }
+    .decoration{
+        pointer-events: none;
+    }
+}
+
+input, select{
+    padding: .5rem;
+    border-radius: 1rem;
+    border: 2px solid $grey;
+    outline: none !important;
+    background: $white;
+    transition: ease-in-out .25s;
+    &:hover{
+        border-color: $greyB;
+    }
+    &:focus{
+        color: $red;
+        border-color: $red;
+        box-shadow: 0 0 0 3px rgba(254, 2, 26, .2);
+    }
+}

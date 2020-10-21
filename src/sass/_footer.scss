@@ -1,0 +1,19 @@
+@import 'variables';
+
+footer{
+    background: $black;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 6px solid $red;
+    img{
+        height: 40px;
+    }
+    p{
+        color: $white;
+        margin-bottom: 0;
+        opacity: .6;
+        font-weight: $light;
+    }
+}

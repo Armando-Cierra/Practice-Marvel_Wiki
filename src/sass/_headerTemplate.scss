@@ -1,0 +1,51 @@
+@import 'variables';
+
+.header{
+    width: 100%;
+    height: 40vh;
+    background-size: cover !important;
+    background-position: center !important;
+    position: relative;
+    border-bottom: 24px solid $red;
+    .gradient{
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, $black, rgba(0, 0, 0,.5));
+        backdrop-filter: blur(2px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h1{
+            height: 50px;
+            color: $red;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-transform: uppercase;
+            span{
+                color: $white;
+                font-size: 3rem;
+                margin-top: 1rem;
+                line-height: 3.2rem;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1440px){
+    .header{
+        background-attachment: fixed !important;
+        height: 60vh;
+        .gradient{
+            h1{
+                font-size: 3rem;
+                bottom: 3.5rem;
+                span{
+                    font-size: 4rem;
+                    margin-top: 3rem;
+                }
+            }
+        }
+    }
+}

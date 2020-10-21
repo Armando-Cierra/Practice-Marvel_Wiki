@@ -1,0 +1,83 @@
+@import 'variables';
+
+.homeStories{
+    border-top: 1.5rem solid $black;
+    background: $lightGrey;
+    .container{
+        .text{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h2{
+                text-align: center;
+            }
+            p{
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+        }
+        .image{
+            position: relative;
+            height: 270px;
+            img{
+                width: 90%;
+                position: absolute;
+                right: 1rem;
+                bottom: 0;
+            }
+        }
+    }
+}
+@media screen and (min-width: 450px){
+    .homeStories{
+        .container{
+            .image{
+                img{
+                    width: 70%;
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 620px){
+    .homeStories{
+        .container{
+            .image{
+                img{
+                    width: 60%;
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 768px){
+    .homeStories{
+        .container{
+            display: flex;
+            .text{
+                width: 50%;
+                padding-bottom: 2rem;
+                p{
+                    text-align: left;
+                }
+            }
+            .image{
+                width: 50%;
+                height: auto;
+                img{
+                    width: 90%;
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 1290px){
+    .homeStories{
+        .container{
+            .text{
+                padding-top: 1rem;
+                padding-bottom: 3rem;
+            }
+        }
+    }
+}

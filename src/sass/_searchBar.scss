@@ -1,0 +1,86 @@
+@import 'variables';
+
+.searchBar {
+    width: 100%;
+    background: $lightGrey;
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 80px;
+    left: 0;
+    z-index: 500;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, .15);
+    margin-bottom: 2rem;
+    form{
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        .field{
+            margin-right: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            margin-left: 1rem;
+            input, select{
+                font-size: .8rem;
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            input{
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+        }
+        button{
+            margin-right: 1rem;
+        }
+    }
+}
+
+@media screen and (min-width: 800px){
+    .searchBar{
+        form{
+            .field{
+                flex-direction: row;
+                input, select{
+                    margin-bottom: 0;
+                    margin-right: 0.5rem;
+                    font-size: 1rem;
+                }
+                input{
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.comicSearchBar{
+    form{
+        .field{
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            input, select {
+                width: 45%;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 800px){
+    .comicSearchBar{
+        form {
+            .field{
+                flex-wrap: nowrap;
+                input, select{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

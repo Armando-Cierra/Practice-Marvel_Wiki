@@ -1,0 +1,28 @@
+@import 'variables';
+
+.homeComics{
+    .container{
+        display: flex;
+        flex-direction: column;
+        .text{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h2{
+                text-align: center;
+            }
+            p{
+                margin-bottom: 2rem;
+                text-align: center;
+                width: 100%;
+                max-width: 900px;
+            }
+            .btn{
+                margin-bottom: 2rem;
+            }
+        }
+        .loader{
+            min-height: 40vh;
+        }
+    }
+}

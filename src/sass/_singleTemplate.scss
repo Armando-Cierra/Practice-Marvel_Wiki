@@ -1,0 +1,93 @@
+@import 'variables';
+
+.description{
+    padding: 0 1rem;
+    .container{
+        .btn{
+            margin: 2rem 0;
+        }
+    }
+    .data{
+        display: flex;
+        flex-direction: column;
+        .img{
+            width: 75%;
+            margin-bottom: 2rem;
+            img{
+                max-width: 100%;
+                max-height: 500px;
+                border-radius: 1rem;
+            }
+        }
+        .text{
+            width: 100%;
+            h2{
+                margin-top: .5rem;
+                line-height: 3rem;
+            }
+            p{
+                text-align: justify;
+                span{
+                    font-weight: $bold;
+                }
+            }
+            .links{
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                grid-gap: 2rem;
+                .box{
+                    display: flex;
+                    flex-direction: column;
+                    h3{
+                        color: $red;
+                        text-transform: uppercase;
+                        margin-left: 2.3rem;
+                        font-size: 2rem;
+                        margin-bottom: .5rem;
+                    }
+                    li{
+                        padding: .5rem;
+                        &:nth-child(odd){
+                            background: $lightGrey;
+                        }
+                        a{
+                            transition: ease-in-out .15s;
+                            &:hover{
+                                color: $red;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and(min-width: 768px){
+    .description{
+        .data{
+            .text{
+                .links{
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1440px){
+    .description{
+        padding: 0 2rem;
+        .data{
+            flex-direction: row;
+            .img{
+                width: 25%;
+                margin-bottom: 0;
+                margin-right: 3rem;
+            }
+            .text{
+                width: 75%;
+            }
+        }
+    }
+}

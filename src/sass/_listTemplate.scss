@@ -1,0 +1,91 @@
+@import 'variables';
+
+.list{
+    width: 100%;
+    padding: 2rem 0;
+    padding-bottom: 4rem;
+    .container{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 1.5rem;
+        .element{
+            background: $black;
+            padding-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            clip-path: polygon(100% 0, 100% 95%, 90% 100%, 0 100%, 0 0);
+            text-decoration: none;
+            transition: ease-in-out .25s;
+            &:hover{
+                transform: scale(1.05);
+                background: $red;
+            }
+            .img{
+                height: 230px;
+                width: 100%;
+                background-size: cover !important;
+                background-position: center !important;
+                background-position-x: left !important;
+            }
+            img{
+                width: 100%;
+                background-size: cover !important;
+                background-position: center;
+                border-bottom: 4px solid $red;
+            }
+            span{
+                width: 100%;
+                color: $white;
+                padding: 0 .5rem;
+                font-weight: $light;
+            }
+            .name{
+                font-weight: $bold;
+                margin-top: 1rem;
+            }
+        }
+        .element.storie{
+            padding: 1rem;
+            border-top: 6px solid $red;
+        }
+    }
+}
+
+@media screen and (min-width: 400px){
+    .list{
+        .container{
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media screen and (min-width: 600px){
+    .list{
+        .container{
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+@media screen and (min-width: 850px){
+    .list{
+        .container{
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+}
+
+@media screen and (min-width: 1280px){
+    .list{
+        .container{
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+}
+
+.boxList{
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

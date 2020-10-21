@@ -1,0 +1,151 @@
+@import 'variables';
+
+.mobileBar{
+    width: 100%;
+    background: $black;
+    border-bottom: 6px solid $red;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    .toggleBtn{
+        width: 40px;
+        height: 40px;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: ease-in-out .15s;
+        transition-delay: .1s;
+        div{
+            position: relative;
+            height: 4px;
+            border-radius: 3px;
+            width: 60%;
+            background-color: $white;
+            z-index: -1;
+            transition: ease-in-out .25s;
+            &::after, &::before{
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: 4px;
+                border-radius: 3px;
+                background-color: $white;
+                transition: ease-in-out .25s;
+            }
+            &::before{
+                transform: translateY(-.5rem);
+            }
+            &::after{
+                transform: translateY(.5rem);
+            }
+        }
+    }
+    .toggleBtn.active{
+        box-shadow: none;
+        &::after{
+            content: 'Exit/Salir';
+            position: absolute;
+            left: 100%;
+            font-weight: $bold;
+            color: $black;
+            font-size: 1.2rem;
+        }
+        div{
+            background: transparent;
+            &::before{
+                transform: rotate(135deg);
+            }
+            &::after{
+                transform: rotate(-135deg);
+            }
+        }
+    }
+    img{
+        height: 50px;
+    }
+}
+
+.backgroundMenu{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    z-index: 800;
+    backdrop-filter: blur(5px);
+    display: none;
+    transition: ease-in-out .25s;
+}
+.backgroundMenu.active{
+    display: block;
+    animation-name: show;
+    animation-duration: .25s;
+    animation-fill-mode: forwards;
+
+}
+@keyframes show{
+    0% {display: block;}
+    2% {background: rgba(0, 0, 0, 0);}
+    100% {background: rgba(0, 0, 0, .75);}
+}
+
+.mobileMenu{
+    position: fixed;
+    bottom: 0;
+    left: -80%;
+    height: calc(100vh - 80px);
+    width: 80%;
+    background: $black;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0);
+    transition: ease-in-out .25s;
+    a{
+        color: $white;
+        text-decoration: none;
+        font-weight: $bold;
+        font-size: 2.5rem;
+        padding: 2rem 2rem;
+        opacity: .6;
+        transition: ease-in-out;
+    }
+    .active{
+        opacity: 1;
+    }
+    span{
+        position: absolute;
+        left: 0;
+        bottom: 1rem;
+        width: 100%;
+        text-align: center;
+        color: $white;
+        opacity: .5;
+        font-weight: $light;
+    }
+}
+.mobileMenu.active{
+    left: 0;
+    box-shadow: 0 0 25px rgba(0, 0, 0, .6);
+}
+
+@media screen and (min-width: 768px){
+    .mobileBar{
+        display: none;
+    }
+    .backgroundMenu, .backgroundMenu.active {
+        display: none;
+    }
+    .mobileMenu, .mobileMenu.active{
+        display: none;
+    }
+}
