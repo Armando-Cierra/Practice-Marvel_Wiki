@@ -34,9 +34,9 @@ export default function MobileMenu(){
             <div className={`backgroundMenu ${menu ? 'active' : ''}`} onClick={toggle}></div>
             <nav className={`mobileMenu ${menu ? 'active' : ''}`}>
                 <NavLink to="/" exact onClick={toggle}>Home</NavLink>
-                <NavLink to="/characters/1" onClick={toggle} onClick={eraseCharacterInfo}>Characters</NavLink>
-                <NavLink to="/comics/1" onClick={toggle} onClick={eraseComicsInfo}>Comics</NavLink>
-                <NavLink to="/stories/1" onClick={toggle} onClick={eraseStoriesInfo}>Stories</NavLink>
+                <NavLink to="/characters/1" onClick={()=>{toggle(); eraseCharacterInfo();}}>Characters</NavLink>
+                <NavLink to="/comics/1" onClick={()=>{toggle(); eraseComicsInfo();}}>Comics</NavLink>
+                <NavLink to="/stories/1" onClick={()=>{toggle(); eraseStoriesInfo();}}>Stories</NavLink>
                 <span>Copyright {year} © marvel-wiki.com</span>
             </nav>
         </>

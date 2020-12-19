@@ -17,6 +17,9 @@ export default function Pagination({url}){
             case 'stories':
                 return StoriesContext;
                 break;
+            default:
+                return null;
+                break;
         }
     }
 
@@ -54,6 +57,7 @@ export default function Pagination({url}){
         }
 
         setNumerationToShow(newNumeration);
+        // eslint-disable-next-line
     },[page, info])
 
     //Updating selected page
