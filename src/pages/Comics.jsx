@@ -31,13 +31,14 @@ export default function Comic(props){
     //states
     const [load, setLoad] = useState(true);
     const [info, setInfo] = useState(JSON.parse(localStorage.getItem('comicsFilters')))
-    const {comics, offset, orderBy, format, titleStartsWith, characterID, storieID, issueNumber, limit, totalResults, currentPage} = info;
+    const {offset, orderBy, format, titleStartsWith, characterID, storieID, issueNumber, limit, totalResults, currentPage} = info;
 
 
     //Getting comics information
     useEffect(()=>{
         document.documentElement.scrollTop = 0;
         loadComics();
+        // eslint-disable-next-line
     }, [orderBy, format, titleStartsWith, characterID, storieID, issueNumber, currentPage])
 
     async function loadComics(){

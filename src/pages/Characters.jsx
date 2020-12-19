@@ -34,6 +34,7 @@ export default function Characters(props){
     useEffect(()=>{
         document.documentElement.scrollTop = 0;
         loadCharacters();
+        // eslint-disable-next-line
     },[nameStartsWith, comicID, storieID, currentPage])
 
 

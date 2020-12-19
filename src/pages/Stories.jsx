@@ -27,12 +27,13 @@ export default function Stories(props){
     //states
     const [load, setLoad] = useState(true);
     const [info, setInfo] = useState(JSON.parse(localStorage.getItem('storiesFilters')));
-    const {offset, characterID, comicID, limit, totalResults, currentPage} = info;
+    const {offset, characterID, comicID, limit, totalResults} = info;
 
     //Getting stories information
     useEffect(()=>{
         document.documentElement.scrollTop = 0;
         loadCharacters();
+        // eslint-disable-next-line
     },[characterID, comicID])
 
     async function loadCharacters(){
