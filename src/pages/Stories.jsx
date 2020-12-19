@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Helmet} from 'react-helmet';
+import StoriesContext from '../context/StoriesContext'
 
 import Header from '../components/Header';
 import StoriesSearchBar from '../components/StoriesSearchBar';
@@ -9,39 +10,32 @@ import Pagination from '../components/Pagination';
 import Loader from '../components/Loader';
 
 export default function Stories(props){
-    //--------------------------------------------------
-    //STATES--------------------------------------------
 
+    //Verifying localStorage
+    if(!localStorage.getItem('storiesFilters')){
+        localStorage.setItem('storiesFilters', JSON.stringify({
+            stories: [],
+            offset: (props.match.params.page - 1) * 30,
+            characterID: '',
+            comicID: '',
+            limit: 30,
+            totalResults: 0,
+            currentPage: props.match.params.page
+        }))
+    }
+
+    //states
     const [load, setLoad] = useState(true);
-    const [stories, setStories] = useState([]);
+    const [info, setInfo] = useState(JSON.parse(localStorage.getItem('storiesFilters')));
+    const {offset, characterID, comicID, limit, totalResults, currentPage} = info;
 
-    //Filters for api consumption
-    const [filters, setFilters] = useState({
-        offset: (props.match.params.pageNumber - 1) * 30,
-        characterID: '',
-        comicID: ''
-    })
-    const {offset, characterID, comicID} = filters;
-    
-    //Pagination Values
-    const [pagination, setPagination] = useState({
-        limit: 50,
-        totalResults: 0,
-        currentPage: props.match.params.pageNumber
-    })
-    const {limit, totalResults, currentPage} = pagination;
-
-    //--------------------------------------------------
-    //STORIES LOAD-----------------------------------
-
+    //Getting stories information
     useEffect(()=>{
         document.documentElement.scrollTop = 0;
-        loadCharacters(limit, offset, characterID, comicID);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[filters])
+        loadCharacters();
+    },[characterID, comicID])
 
-    async function loadCharacters(limit, offset, characterID, comicID){
-
+    async function loadCharacters(){
         setLoad(true);
 
         //Generate url strings according to filters
@@ -57,68 +51,19 @@ export default function Stories(props){
         //Request info to the api with the complete url string
         try{
             const {data: {data}} = await axios.get(url);
-            const {results} = data;
 
-            await setStories(results);
-            await setPagination({
-                ...pagination,
+            await setInfo({
+                ...info,
+                stories: data.results,
                 totalResults: data.total
             })
             setLoad(false);
         } catch(err){
             console.log(err);
         }
-    }
 
-    //--------------------------------------------------
-    //PAGINATION FUNCTIONS------------------------------
-
-    async function updateCurrentPage(e){
-        await setPagination({
-            ...pagination,
-            currentPage: e
-        })
-        await setFilters({
-            ...filters,
-            offset: (e - 1) * 30
-        })
-    }
-
-    //--------------------------------------------------
-    //SEARCH BAR FILTER---------------------------------
-
-    async function updateFilter(e){
-        props.history.push('/stories/1')
-        await setPagination({
-            ...pagination,
-            totalResults: 0,
-            currentPage: 1
-        })
-        await setFilters({
-            ...filters,
-            offset: 0,
-            characterID: e.characterID,
-            comicID: e.comicID,
-        });
-        
-    }
-
-    //--------------------------------------------------
-    //NO RESULTS UPDATE---------------------------------
-
-    async function noResultsUpdate(){
-        props.history.push('/comics/1')
-        await setPagination({
-            ...pagination,
-            totalResults: 0,
-            currentPage: 1
-        })
-        await setFilters({
-            ...filters,
-            offset: 0,
-            characterID: '',
-            comicID: '',
-        });
+        //Saving localStorage info for the filters
+        localStorage.setItem('storiesFilters', JSON.stringify(info))
     }
 
     return(
@@ -126,12 +71,17 @@ export default function Stories(props){
             <Helmet>
                 <title>Marvel Wiki - Stories</title>
             </Helmet>
+
             <Header title1="marvel" title2="Stories" img="../img/stories.jpg"/>
-            <StoriesSearchBar updateFilter={updateFilter}/>
-            <div className="boxList">
-                {load ? <Loader/> : <StoriesList stories={stories} noResultsUpdate={noResultsUpdate}/>}
-            </div>
-            {totalResults > 0 && <Pagination url="stories" currentPage={currentPage} updateCurrentPage={updateCurrentPage} totalResults={totalResults} limit={limit}/>}
+            <StoriesContext.Provider value={{info, setInfo}}>
+                <StoriesSearchBar/>
+                {load ? 
+                    <Loader/> 
+                    :
+                    <StoriesList/>
+                }
+                {totalResults > 0 && <Pagination url="stories"/>}
+            </StoriesContext.Provider>
         </>
     )
 }

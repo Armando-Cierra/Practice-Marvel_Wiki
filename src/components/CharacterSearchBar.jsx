@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import {useState, useContext} from 'react'
+import CharactersContext from '../context/CharactersContext'
 
-export default function CharacterSearchBar({updateFilter}){
+export default function CharacterSearchBar(){
+
+    const {info, setInfo} = useContext(CharactersContext)
 
     const [data, setData] = useState({
-        name: '',
-        comicID: '',
-        storieID: ''
+        name: info.nameStartsWith,
+        comicID: info.comicID,
+        storieID: info.storieID
     });
 
     function getData(e){
@@ -17,11 +20,13 @@ export default function CharacterSearchBar({updateFilter}){
 
     function readData(e){
         e.preventDefault();
-        updateFilter(data);
-        setData({
-            name: '',
-            comicID: '',
-            storieID: ''
+        setInfo({
+            ...info,
+            offset: 0,
+            nameStartsWith: data.name,
+            comicID: data.comicID,
+            storieID: data.storieID,
+            currentPage: 1
         });
     }
 

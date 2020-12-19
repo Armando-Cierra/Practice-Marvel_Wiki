@@ -1,21 +1,33 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom'
+import {useContext} from 'react'
+import ComicsContext from '../context/ComicsContext'
 
-export default function ComicsList({comics, noResultsUpdate}){
+export default function ComicsList(){
+
+    const {info, setInfo} = useContext(ComicsContext)
 
     return(
         <section className="list">
             <div className="container">
-                {comics.length === 0 ? 
+                {info.comics.length === 0 ? 
                     <>
-                        <Link className="element" onClick={()=>{noResultsUpdate()}}>
+                        <Link className="element" onClick={()=>{setInfo({
+                            ...info,
+                            orderBy: '-onsaleDate',
+                            format: '',
+                            titleStartsWith: '',
+                            characterID: '',
+                            storieID: '',
+                            issueNumber: '',
+                            currentPage: 1
+                        })}} data-aos="fade-up">
                             <div className="img" style={{background: `url('../img/not-available.jpg')`}}></div>
                             <span className="name">← No Results, go back</span>
                         </Link>
                     </>
                     :
                     <>
-                        {comics.map(comic=>{
+                        {info.comics.map(comic=>{
                             const creators = comic.creators.items;
                             const lastElement = creators.length - 1;
                             let listCreators = '';
@@ -36,7 +48,7 @@ export default function ComicsList({comics, noResultsUpdate}){
                                 })
                             }
                             return(
-                                <Link className="element" to={`/comic/${comic.id}`} key={comic.id}>
+                                <Link className="element" to={`/comic/${comic.id}`} key={comic.id} data-aos="fade-up">
                                     <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt=""/>
                                     <span className="name">{comic.title}</span>
                                     <span>{listCreators}</span>

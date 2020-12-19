@@ -9,6 +9,20 @@ export default function MobileMenu(){
         !menu ? setMenu(true) : setMenu(false);
     }
 
+    function eraseCharacterInfo(){
+        localStorage.removeItem('charactersFilters');
+    }
+
+    function eraseComicsInfo() {
+        localStorage.removeItem('comicsFilters');
+    }
+
+    function eraseStoriesInfo() {
+        localStorage.removeItem('storiesFilters');
+    }
+
+    const year = new Date().getFullYear();
+
     return(
         <>
             <div className="mobileBar">
@@ -20,10 +34,10 @@ export default function MobileMenu(){
             <div className={`backgroundMenu ${menu ? 'active' : ''}`} onClick={toggle}></div>
             <nav className={`mobileMenu ${menu ? 'active' : ''}`}>
                 <NavLink to="/" exact onClick={toggle}>Home</NavLink>
-                <NavLink to="/characters/1" onClick={toggle}>Characters</NavLink>
-                <NavLink to="/comics/1" onClick={toggle}>Comics</NavLink>
-                <NavLink to="/stories/1" onClick={toggle}>Stories</NavLink>
-                <span>Copyright 2020 © marvel-wiki.com</span>
+                <NavLink to="/characters/1" onClick={toggle} onClick={eraseCharacterInfo}>Characters</NavLink>
+                <NavLink to="/comics/1" onClick={toggle} onClick={eraseComicsInfo}>Comics</NavLink>
+                <NavLink to="/stories/1" onClick={toggle} onClick={eraseStoriesInfo}>Stories</NavLink>
+                <span>Copyright {year} © marvel-wiki.com</span>
             </nav>
         </>
     )

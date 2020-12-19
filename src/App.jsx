@@ -1,38 +1,39 @@
-import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {useEffect} from 'react'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
-import DeskMenu from './components/DeskMenu';
-import MobileMenu from './components/MobileMenu';
-import Footer from './components/Footer';
+import DeskMenu from './components/DeskMenu'
+import MobileMenu from './components/MobileMenu'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import Characters from './pages/Characters'
+import Character from './pages/Character'
+import Comics from './pages/Comics'
+import Comic from './pages/Comic'
+import Stories from './pages/Stories'
+import Storie from './pages/Storie'
 
-import Home from './pages/Home';
-import Characters from './pages/Characters';
-import Character from './pages/Character';
-import Comics from './pages/Comics';
-import Comic from './pages/Comic';
-import Stories from './pages/Stories';
-import Storie from './pages/Storie';
-import NotFound from './pages/NotFound';
+export default function App(){
 
-function App() {
+  useEffect(()=>{
+    AOS.init();
+  },[])
 
-  return (
+  return(
     <Router>
       <DeskMenu/>
       <MobileMenu/>
       <Switch>
-        <Route path="/" exact component={Home}/>
-        <Route path="/characters/:pageNumber" component={Characters}/>
-        <Route path="/character/:id" exact component={Character}/>
-        <Route path="/comics/:pageNumber" exact component={Comics}/>
-        <Route path="/comic/:id" exact component={Comic}/>
-        <Route path="/stories/:pageNumber" exact component={Stories}/>
-        <Route path="/storie/:id" exact component={Storie}/>
-        <Route component={NotFound} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/characters/:page" component={Characters} />
+        <Route exact path="/character/:id" component={Character} />
+        <Route exact path="/comics/:page" component={Comics} />
+        <Route exact path="/comic/:id" component={Comic} />
+        <Route exact path="/stories/:page" component={Stories}/>
+        <Route exact path="/storie/:id" component={Storie} />
       </Switch>
       <Footer/>
     </Router>
-  );
+  )
 }
-
-export default App;

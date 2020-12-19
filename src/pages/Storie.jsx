@@ -36,14 +36,14 @@ export default function Storie(props){
                 <Header title1="Marvel" title2="Stories" img="../img/stories.jpg"/>
                 <section className="description">
                     <div className="container">
-                        <button className="btn" onClick={props.history.goBack}>Go Back</button>
+                        <button className="btn" onClick={props.history.goBack} data-aos="zoom-in">Go Back</button>
                         </div>
                     <div className="container data">
-                        <div className="img"><img src="../img/not-available.jpg" alt=""/></div>
-                        <div className="text">
+                        <div className="img" data-aos="zoom-in"><img src="../img/not-available.jpg" alt=""/></div>
+                        <div className="text" data-aos="fade-right">
                             <h2>{data.title}</h2>
                             <h3>Character ID: <span style={{color: 'red'}}>{data.id}</span></h3>
-                            <div className="links">
+                            <div className="links" data-aos="fade-up">
                                 <div className="characters box">
                                     {data.characters.available === 0 ?
                                         <p>(No characters available)*</p>
@@ -76,7 +76,7 @@ export default function Storie(props){
                         </div>
                     </div>
                     <div className="container">
-                        <button className="btn" onClick={props.history.goBack}>Go Back</button>
+                        <button className="btn" onClick={props.history.goBack} data-aos="zoom-in">Go Back</button>
                     </div>
                 </section>
             </>

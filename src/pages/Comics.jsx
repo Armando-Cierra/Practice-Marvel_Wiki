@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import {Helmet} from 'react-helmet';
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
+import {Helmet} from 'react-helmet'
+import ComicsContext from '../context/ComicsContext'
 
 import Header from '../components/Header';
 import ComicSearchBar from '../components/ComicSearchBar';
@@ -9,45 +10,39 @@ import Pagination from '../components/Pagination';
 import Loader from '../components/Loader';
 
 export default function Comic(props){
-    //--------------------------------------------------
-    //STATES--------------------------------------------
 
+    //Verifying localStorage
+    if(!localStorage.getItem('comicsFilters')){
+        localStorage.setItem('comicsFilters', JSON.stringify({
+            comics: [],
+            offset: (props.match.params.page - 1) * 30,
+            orderBy: '-onsaleDate',
+            format: '',
+            titleStartsWith: '',
+            characterID: '',
+            storieID: '',
+            issueNumber: '',
+            limit: 30,
+            totalResults: 0,
+            currentPage: props.match.params.page
+        }))
+    }
+
+    //states
     const [load, setLoad] = useState(true);
-    const [comics, setComics] = useState([]);
+    const [info, setInfo] = useState(JSON.parse(localStorage.getItem('comicsFilters')))
+    const {comics, offset, orderBy, format, titleStartsWith, characterID, storieID, issueNumber, limit, totalResults, currentPage} = info;
 
-    //Filters for api consumption
-    const [filters, setFilters] = useState({
-        offset: (props.match.params.pageNumber - 1) * 30,
-        //Options
-        orderBy: '-onsaleDate',
-        format: '',
-        //Inputs
-        titleStartsWith: '',
-        characterID: '',
-        storieID: '',
-        issueNumber: ''
-    })
-    const {offset, orderBy, format, titleStartsWith, characterID, storieID, issueNumber} = filters;
 
-    //Pagination values
-    const [pagination, setPagination] = useState({
-        limit: 30,
-        totalResults: 0,
-        currentPage: props.match.params.pageNumber
-    })
-    const {limit, totalResults, currentPage} = pagination;
-
-    //--------------------------------------------------
-    //CHARACTERS LOAD-----------------------------------
-
+    //Getting comics information
     useEffect(()=>{
         document.documentElement.scrollTop = 0;
-        loadComics(limit, offset, orderBy, format, titleStartsWith, characterID, storieID, issueNumber);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filters])
+        loadComics();
+    }, [orderBy, format, titleStartsWith, characterID, storieID, issueNumber, currentPage])
 
-    async function loadComics(limit, offset, orderBy, format, titleStartsWith, characterID, storieID, issueNumber){
+    async function loadComics(){
         setLoad(true);
+
         //Generate url strings according to filters
         const mainStructure = `https://gateway.marvel.com:443/v1/public/comics?&limit=${limit}&formatType=comic&hasDigitalIssue=true&`;
         let url = mainStructure;
@@ -92,82 +87,22 @@ export default function Comic(props){
 
         url += 'ts=1&apikey=6cd68a4b84b42955f0f3bb84dec3f553&hash=b0bb162537de4f6bbebf28a7ac757197';
 
-        //Request info to the api with the complete url string
+        //Request info to marvel api
         try{
             const {data: {data}} = await axios.get(url);
-            const {results} = data;
-
-            await setComics(results);
-            await setPagination({
-                ...pagination,
+            await setInfo({
+                ...info,
+                comics: data.results,
                 totalResults: data.total
-            })
+            });
             setLoad(false);
             
         } catch(err){
             console.log(err);
         }
-    }
 
-    //--------------------------------------------------
-    //PAGINATION FUNCTIONS------------------------------
-
-    async function updateCurrentPage(e){
-        await setPagination({
-            ...pagination,
-            currentPage: e
-        })
-
-        await setFilters({
-            ...filters,
-            offset: (e - 1) * 30
-        })
-    }
-
-    //--------------------------------------------------
-    //SEARCH BAR FILTER---------------------------------
-
-    async function updateFilter(e){
-        props.history.push('/comics/1')
-        await setPagination({
-            ...pagination,
-            totalResults: 0,
-            currentPage: 1
-        })
-        await setFilters({
-            ...filters,
-            offset: 0,
-            orderBy: e.orderBy,
-            format: e.format,
-            titleStartsWith: e.titleStartsWith,
-            characterID: e.characterID,
-            storieID: e.storieID,
-            issueNumber: e.issueNumber
-        });
-    }
-
-    //--------------------------------------------------
-    //NO RESULTS UPDATE---------------------------------
-
-    async function noResultsUpdate(){
-        props.history.push('/comics/1')
-        await setPagination({
-            ...pagination,
-            totalResults: 0,
-            currentPage: 1
-        })
-        await setFilters({
-            ...filters,
-            offset: (props.match.params.pageNumber - 1) * 30,
-            //Options
-            orderBy: '-onsaleDate',
-            format: '',
-            //Inputs
-            titleStartsWith: '',
-            characterID: '',
-            storieID: '',
-            issueNumber: ''
-        });
+        //Saving localStorage info for filters
+        localStorage.setItem('comicsFilters', JSON.stringify(info));
     }
 
     return(
@@ -175,12 +110,17 @@ export default function Comic(props){
             <Helmet>
                 <title>Marvel Wiki - Comics</title>
             </Helmet>
+
             <Header title1="marvel" title2="comics" img="../img/comics.jpg" />
-            <ComicSearchBar updateFilter={updateFilter}/>
-            <div className="boxList">
-                {load ? <Loader/> : <ComicsList comics={comics} noResultsUpdate={noResultsUpdate}/> }
-            </div>
-            {totalResults > 0 && <Pagination url="comics" currentPage={currentPage} updateCurrentPage={updateCurrentPage} totalResults={totalResults} limit={limit}/>}
+            <ComicsContext.Provider value={{info, setInfo}}>
+                <ComicSearchBar/>
+                {load ? 
+                    <Loader/> 
+                    : 
+                    <ComicsList /> 
+                }
+                {totalResults > 0 && <Pagination url="comics"/>}
+            </ComicsContext.Provider>
         </>
     )
 }

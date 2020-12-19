@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import ComicsContext from '../context/ComicsContext'
 
-export default function ComicSearchBar({updateFilter}){
+export default function ComicSearchBar(){
+
+    const {info, setInfo} = useContext(ComicsContext)
 
     const [data, setData] = useState({
-        orderBy: '-onsaleDate',
-        format: '',
-        titleStartsWith: '',
-        characterID: '',
-        storieID: '',
-        issueNumber: ''
+        orderBy: info.orderBy,
+        format: info.format,
+        titleStartsWith: info.titleStartsWith,
+        characterID: info.characterID,
+        storieID: info.storieID,
+        issueNumber: info.issueNumber
     });
 
     function getData(e){
@@ -20,15 +23,16 @@ export default function ComicSearchBar({updateFilter}){
 
     function readData(e){
         e.preventDefault();
-        updateFilter(data);
-        setData({
-            hasDigitalIssue: true,
-            orderBy: '-onsaleDate',
-            format: '',
-            titleStartsWith: '',
-            characterID: '',
-            storieID: '',
-            issueNumber: ''
+        setInfo({
+            ...info,
+            offset: 0,
+            orderBy: data.orderBy,
+            format: data.format,
+            titleStartsWith: data.titleStartsWith,
+            characterID: data.characterID,
+            storieID: data.storieID,
+            issueNumber: data.issueNumber,
+            currentPage: 1
         });
     }
 

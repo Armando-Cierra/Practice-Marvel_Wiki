@@ -28,7 +28,7 @@ export default function HomeComicList(){
         return(
             <div className="list">
                 <div className="container">
-                    {comics.map(comic=>{
+                    {comics.map((comic, index)=>{
                         const creators = comic.creators.items;
                         const lastElement = creators.length - 1;
                         let listCreators = '';
@@ -49,7 +49,7 @@ export default function HomeComicList(){
                             })
                         }
                         return(
-                            <Link className="element" to={`/comic/${comic.id}`} key={comic.id}>
+                            <Link className="element" to={`/comic/${comic.id}`} key={comic.id} data-aos="zoom-in" data-aos-delay={index * 100}>
                                 <img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt=""/>
                                 <span className="name">{comic.title}</span>
                                 <span>{listCreators}</span>

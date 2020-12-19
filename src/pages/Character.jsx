@@ -15,7 +15,6 @@ export default function Character(props){
     //Loading character's info
     useEffect(()=>{
         loadInfo();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     async function loadInfo(){
@@ -36,18 +35,18 @@ export default function Character(props){
                 <Header title1="Marvel" title2="Characters" img={`${data.thumbnail.path}.${data.thumbnail.extension}`}/>
                 <section className="description">
                     <div className="container">
-                        <button className="btn" onClick={props.history.goBack}>Go Back</button>
+                        <button className="btn" onClick={props.history.goBack} data-aos="zoom-in">Go Back</button>
                         </div>
                     <div className="container data">
-                        <div className="img"><img src={`${data.thumbnail.path}.${data.thumbnail.extension}`} alt=""/></div>
-                        <div className="text">
+                        <div className="img" data-aos="zoom-in"><img src={`${data.thumbnail.path}.${data.thumbnail.extension}`} alt=""/></div>
+                        <div className="text" data-aos="fade-right">
                             <h2>{data.name}</h2>
                             <h3>Character ID: <span style={{color: 'red'}}>{data.id}</span></h3>
                             <p>
                                 <span>Description: </span>
                                 {data.description === '' ? '(Description is not available)*' : data.description}
                             </p>
-                            <div className="links">
+                            <div className="links" data-aos="fade-up">
                                 <div className="comics box">
                                     {data.comics.available === 0 ?
                                         <p>(No comics available)*</p>
@@ -80,7 +79,7 @@ export default function Character(props){
                         </div>
                     </div>
                     <div className="container">
-                        <button className="btn" onClick={props.history.goBack}>Go Back</button>
+                        <button className="btn" onClick={props.history.goBack} data-aos="zoom-in">Go Back</button>
                     </div>
                 </section>
             </>

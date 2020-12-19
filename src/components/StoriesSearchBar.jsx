@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import StoriesContext from '../context/StoriesContext'
 
-export default function StoriesSearchBar({updateFilter}){
+export default function StoriesSearchBar(){
+
+    const {info, setInfo} = useContext(StoriesContext)
 
     const [data, setData] = useState({
-        characterID: '',
-        comicID: '',
+        characterID: info.characterID,
+        comicID: info.comicID,
     });
 
     function getData(e){
@@ -16,10 +19,12 @@ export default function StoriesSearchBar({updateFilter}){
 
     function readData(e){
         e.preventDefault();
-        updateFilter(data);
-        setData({
-            characterID: '',
-            comicID: '',
+        setInfo({
+            ...info,
+            offset: 0,
+            characterID: data.characterID,
+            comicID: data.comicID,
+            currentPage: 1
         });
     }
 

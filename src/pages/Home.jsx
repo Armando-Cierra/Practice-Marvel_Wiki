@@ -19,8 +19,8 @@ export default function Home(){
             <header className="homeHeader">
                 <img className="background" src="./img/home-background.png" alt=""/>
                 <div className="container">
-                    <img src="./img/home-header.png" alt=""/>
-                    <div className="text">
+                    <img src="./img/home-header.png" alt="" data-aos="zoom-in"/>
+                    <div className="text" data-aos="fade-right" data-aos-delay="250">
                         <div className="title">
                             <h2 className="black">
                                 <span>search your</span>
@@ -35,12 +35,12 @@ export default function Home(){
             <section className="homeComics">
                 <div className="container">
                     <div className="text">
-                        <h2>
+                        <h2 data-aos="fade-up">
                             <span>readings for</span>
                             fans
                         </h2>
-                        <p>Marvel universe is one the greates accomplishments of fiction, getting together thousands of superheroes fighting againts their antagonists and sometimes, even fighting between them in alternative reallities, different timelines and crossovers. Look for your favorites comics or dare to get involve into new ones.</p>
-                        <Link className="btn red" to="/comics/1">Comics</Link>
+                        <p data-aos="fade-up">Marvel universe is one the greates accomplishments of fiction, getting together thousands of superheroes fighting againts their antagonists and sometimes, even fighting between them in alternative reallities, different timelines and crossovers. Look for your favorites comics or dare to get involve into new ones.</p>
+                        <Link className="btn red" to="/comics/1" data-aos="fade-up">Comics</Link>
                     </div>
                     <HomeComicList />
                 </div>
@@ -48,19 +48,18 @@ export default function Home(){
             <section className="homeStories">
                 <div className="container">
                     <div className="text">
-                        <h2>
+                        <h2 data-aos="fade-up">
                             <span>stories...</span>
                             assemble!
                         </h2>
-                        <p>If you are here, then you know what you look for. Find your favorite stories and discover what comics and characters were involved into them. Access to the most diverses worlds and storytellings next to your favorite characters and villains.</p>
-                        <Link className="btn red" to="/stories/1">Stories</Link>
+                        <p data-aos="fade-up">If you are here, then you know what you look for. Find your favorite stories and discover what comics and characters were involved into them. Access to the most diverses worlds and storytellings next to your favorite characters and villains.</p>
+                        <Link className="btn red" to="/stories/1" data-aos="fade-up">Stories</Link>
                     </div>
-                    <div className="image">
+                    <div className="image" data-aos="zoom-in">
                         <img src="./img/home-stories.png" alt=""/>
                     </div>
                 </div>
             </section>
-            
         </>
     )
 }
