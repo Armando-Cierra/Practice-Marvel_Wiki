@@ -13,6 +13,7 @@ import Comics from './pages/Comics'
 import Comic from './pages/Comic'
 import Stories from './pages/Stories'
 import Storie from './pages/Storie'
+import NotFound from './pages/NotFound'
 
 export default function App(){
 
@@ -32,6 +33,7 @@ export default function App(){
         <Route exact path="/comic/:id" component={Comic} />
         <Route exact path="/stories/:page" component={Stories}/>
         <Route exact path="/storie/:id" component={Storie} />
+        <Route component={NotFound} />
       </Switch>
       <Footer/>
     </Router>
