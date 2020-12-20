@@ -32,11 +32,11 @@ export default function Stories(props){
     //Getting stories information
     useEffect(()=>{
         document.documentElement.scrollTop = 0;
-        loadCharacters();
+        loadStories();
         // eslint-disable-next-line
     },[characterID, comicID])
 
-    async function loadCharacters(){
+    async function loadStories(){
         setLoad(true);
 
         //Generate url strings according to filters
